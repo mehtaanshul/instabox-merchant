@@ -6,7 +6,8 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import OrdersScreen from '../screens/OrdersScreen';
+import MachinesScreen from '../screens/MachinesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
@@ -14,8 +15,11 @@ export default TabNavigator(
     Home: {
       screen: HomeScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    Machines: {
+      screen: MachinesScreen,
+    },
+    Orders: {
+      screen: OrdersScreen,
     },
     Settings: {
       screen: SettingsScreen,
@@ -29,18 +33,23 @@ export default TabNavigator(
         switch (routeName) {
           case 'Home':
             iconName = Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle';
+              ? `ios-home${focused ? '' : '-outline'}`
+              : 'md-home';
             break;
-          case 'Links':
+          case 'Machines':
             iconName = Platform.OS === 'ios'
-              ? `ios-link${focused ? '' : '-outline'}`
-              : 'md-link';
+              ? `ios-jet${focused ? '' : '-outline'}`
+              : 'md-jet';
             break;
+          case 'Orders':
+               iconName = Platform.OS === 'ios'
+                 ? `ios-paper${focused ? '' : '-outline'}`
+                 : 'md-paper';
+               break;
           case 'Settings':
             iconName = Platform.OS === 'ios'
-              ? `ios-options${focused ? '' : '-outline'}`
-              : 'md-options';
+              ? `ios-happy${focused ? '' : '-outline'}`
+              : 'md-happy';
         }
         return (
           <Ionicons
