@@ -18,7 +18,7 @@ export default class OrdersScreen extends React.Component {
         <Content>
           <List dataArray={orders}
             renderRow={(order) =>
-              <ListItem>
+              <ListItem onPress={() => navigate('OrderDetails', { id: `${order.order_id}`})}>
               <View style={styles.view}>
                   <View style={styles.innerviewleft}>
                     <Text style={styles.boldtext}>{order.order_id}</Text>

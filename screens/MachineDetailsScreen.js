@@ -2,9 +2,9 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Body, Left, Right, Text } from 'native-base';
 
-export default class MachinesScreen extends React.Component {
+export default class MachineDetailsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Machines',
+    title: 'Hostel A',
   };
 
   render() {

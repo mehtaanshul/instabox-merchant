@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import MachineDetailsScreen from '../screens/MachineDetailsScreen';
+import OrderDetailsScreen from '../screens/OrderDetailsScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
@@ -13,6 +14,9 @@ const RootStackNavigator = StackNavigator(
     },
     MachineDetails: {
       screen: MachineDetailsScreen,
+    },
+    OrderDetails: {
+      screen: OrderDetailsScreen,
     },
   },
   {
