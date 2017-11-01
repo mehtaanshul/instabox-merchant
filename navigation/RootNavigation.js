@@ -3,12 +3,16 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
+import MachineDetailsScreen from '../screens/MachineDetailsScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
     Main: {
       screen: MainTabNavigator,
+    },
+    MachineDetails: {
+      screen: MachineDetailsScreen,
     },
   },
   {

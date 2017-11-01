@@ -8,7 +8,7 @@ export default class MachinesScreen extends React.Component {
   };
 
   render() {
-
+    const { navigate } = this.props.navigation;
     var machines = [{"id":"1","location":"Hostel A","company":"Thapar University","items_left":"150/240","date":"21/10"},
                     {"id":"2","location":"Cos","company":"Thapar University","items_left":"100/400","date":"21/10"},
                     {"id":"3","location":"Hostel J","company":"Thapar University","items_left":"50/300","date":"21/10"}];
@@ -17,7 +17,7 @@ export default class MachinesScreen extends React.Component {
         <Content>
           <List dataArray={machines}
             renderRow={(machine) =>
-              <ListItem>
+              <ListItem onPress={() => navigate('MachineDetails', { id: `${machine.id}`})}>
                <View style={styles.view}>
                   <View>
                     <Text style={styles.boldtext}>Machine ID: {machine.id}</Text>
