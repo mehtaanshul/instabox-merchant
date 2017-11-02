@@ -1,7 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
-import { Container, Header, Content, List, ListItem, Thumbnail, Body, Left, Right, Badge } from 'native-base';
+import { Container, Header, Content, List, ListItem, Thumbnail, Body, Left, Right, Badge, Picker, Form, Item as FormItem } from 'native-base';
 
+const Item = Picker.Item;
 
 export default class OrdersScreen extends React.Component {
   static navigationOptions = {
@@ -13,11 +14,44 @@ export default class OrdersScreen extends React.Component {
     this.state = {
       isLoading: true,
       orders:{},
+      machines:{},
+      selected1:"key1",
     }
+  }
+
+  onValueChange(value: string) {
+    this.setState({
+      selected1: value
+    });
   }
 
   componentDidMount = async () => {
     /*let token = await AsyncStorage.getItem('token');*/
+
+    fetch('http://api.mysnackbox.co/machines',{
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2MjU5ODcsImV4cCI6MTUxMjIxNzk4NywiaWQiOm51bGwsImVtYWlsIjoibGFrc2hpdDEwMDFAeW1haWwuY29tIn0.0vsc2jMGeaK25MV02ERjCblv23b65SLmuAslfYYiT-c',
+          'Host': 'api.mysnackbox.co'
+        }
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          machines: responseJson.data,
+          
+        }, function() {
+          console.log(this.state.machines)
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
     fetch('http://api.mysnackbox.co/orders',{
         method: 'GET',
         headers: {
@@ -59,6 +93,20 @@ export default class OrdersScreen extends React.Component {
     return (
       <Container style={styles.container}>
         <Content>
+          <Form>
+            <Picker
+              iosHeader="Select one"
+              mode="dropdown"
+              selectedValue={this.state.selected1}
+              onValueChange={this.onValueChange.bind(this)}
+            >
+              <Item label="Wallet" value="key0" />
+              <Item label="ATM Card" value="key1" />
+              <Item label="Debit Card" value="key2" />
+              <Item label="Credit Card" value="key3" />
+              <Item label="Net Banking" value="key4" />
+            </Picker>
+          </Form>
           <List dataArray={this.state.orders}
             renderRow={(order) =>
               <ListItem onPress={() => navigate('OrderDetails', { id: `${order.id}`,price: `${order.price}`,quantity: `${order.quantity}`, time: `${order.time}`})}>
