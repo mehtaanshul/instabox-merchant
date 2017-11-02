@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Body } from 'native-base';
 
 export default class MachinesScreen extends React.Component {
@@ -7,26 +7,69 @@ export default class MachinesScreen extends React.Component {
     title: 'Machines',
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      machines:{},
+    }
+  }
+
+  componentDidMount = async () => {
+    /*let token = await AsyncStorage.getItem('token');*/
+    fetch('http://api.mysnackbox.co/machines',{
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2MjU5ODcsImV4cCI6MTUxMjIxNzk4NywiaWQiOm51bGwsImVtYWlsIjoibGFrc2hpdDEwMDFAeW1haWwuY29tIn0.0vsc2jMGeaK25MV02ERjCblv23b65SLmuAslfYYiT-c',
+          'Host': 'api.mysnackbox.co'
+        }
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          machines: responseJson.data,
+          
+        }, function() {
+          console.log(this.state.machines)
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
     const { navigate } = this.props.navigation;
-    var machines = [{"id":"1","location":"Hostel A","company":"Thapar University","items_left":"150/240","date":"21/10"},
+    /*var machines = [{"id":"1","location":"Hostel A","company":"Thapar University","items_left":"150/240","date":"21/10"},
                     {"id":"2","location":"Cos","company":"Thapar University","items_left":"100/400","date":"21/10"},
-                    {"id":"3","location":"Hostel J","company":"Thapar University","items_left":"50/300","date":"21/10"}];
+                    {"id":"3","location":"Hostel J","company":"Thapar University","items_left":"50/300","date":"21/10"}];*/
     return (
       <Container style={styles.container}>
         <Content>
-          <List dataArray={machines}
+          <List dataArray={this.state.machines}
             renderRow={(machine) =>
               <ListItem onPress={() => navigate('MachineDetails', { id: `${machine.id}`})}>
                <View style={styles.view}>
                   <View>
                     <Text style={styles.boldtext}>Machine ID: {machine.id}</Text>
-                    <Text>{machine.location}</Text>
-                    <Text>{machine.company}</Text>
+                    <Text>{machine.area}</Text>
+                    <Text>{machine.city}</Text>
                   </View>
                   <View style={styles.innerview}>
-                    <Text style={styles.boldtext}>{machine.items_left} items left</Text>
-                    <Text>{machine.date} next refilling</Text>
+                    <Text style={styles.boldtext}>{machine.left_units}/{machine.tot_units} items left</Text>
+                    <Text>{machine.date} 21/10 </Text>
                   </View>
                 </View>
               </ListItem>

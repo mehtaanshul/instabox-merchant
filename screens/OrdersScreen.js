@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text} from 'react-native';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Body, Left, Right, Badge } from 'native-base';
 
 
@@ -8,34 +8,77 @@ export default class OrdersScreen extends React.Component {
     title: 'Orders',
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      orders:{},
+    }
+  }
+
+  componentDidMount = async () => {
+    /*let token = await AsyncStorage.getItem('token');*/
+    fetch('http://api.mysnackbox.co/orders',{
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2MjU5ODcsImV4cCI6MTUxMjIxNzk4NywiaWQiOm51bGwsImVtYWlsIjoibGFrc2hpdDEwMDFAeW1haWwuY29tIn0.0vsc2jMGeaK25MV02ERjCblv23b65SLmuAslfYYiT-c',
+          'Host': 'api.mysnackbox.co'
+        }
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          orders: responseJson.data,
+          
+        }, function() {
+          console.log(this.state.machineItems)
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
     const { navigate } = this.props.navigation;
-    var orders =   [{"order_id":"UB00201BC22","amount":"50","status":"paid","items_left":"3/9","date":"21 Sep 2017","time":"14:24"},
+    /*var orders =   [{"order_id":"UB00201BC22","amount":"50","status":"paid","items_left":"3/9","date":"21 Sep 2017","time":"14:24"},
                     {"order_id":"UB00201BC30","amount":"100","status":"pending","items_left":"4/9","date":"21 Sep 2017","time":"14:24"},
-                    {"order_id":"UB00201BC36","amount":"320","status":"declined","items_left":"5/12","date":"21 Sep 2017","time":"14:24"}];
+                    {"order_id":"UB00201BC36","amount":"320","status":"declined","items_left":"5/12","date":"21 Sep 2017","time":"14:24"}];*/
     return (
       <Container style={styles.container}>
         <Content>
-          <List dataArray={orders}
+          <List dataArray={this.state.orders}
             renderRow={(order) =>
-              <ListItem onPress={() => navigate('OrderDetails', { id: `${order.order_id}`})}>
+              <ListItem onPress={() => navigate('OrderDetails', { id: `${order.id}`,price: `${order.price}`,quantity: `${order.quantity}`, time: `${order.time}`})}>
               <View style={styles.view}>
                   <View style={styles.innerviewleft}>
-                    <Text style={styles.boldtext}>{order.order_id}</Text>
-                    <Text>{order.time} {order.date}</Text>
+                    <Text style={styles.boldtext}>{order.id}</Text>
+                    <Text>{order.time}</Text>
                   </View>
 
                   <View style={styles.innerviewright}>
-                    <Text style={styles.boldtext}>Rs. {order.amount}</Text>
+                    <Text style={styles.boldtext}>Rs. {order.price}</Text>
                     {
-                          order.status == 'paid' ? (
+                          order.status == 'Paid' ? (
                             <Badge style={{ backgroundColor: '#388e3c',width:80,justifyContent: 'center'}}>
                               <Text style={{ color: 'white',textAlign: 'center'}}>Paid</Text>
                             </Badge>
                             )
                             :
                             (
-                            order.status == 'pending' ? (
+                            order.status == 'Pending' ? (
                             <Badge style={{ backgroundColor: '#f39c12',width:80,justifyContent: 'center'}}>
                               <Text style={{ color: 'white',textAlign: 'center'}}>Pending</Text>
                             </Badge>
