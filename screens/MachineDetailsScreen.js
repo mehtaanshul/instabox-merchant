@@ -1,30 +1,74 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Body, Left, Right, Text } from 'native-base';
 
 export default class MachineDetailsScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Hostel A',
-  };
+  
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.id}`,
+  })
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      machineItems:{},
+    }
+  }
+
+  componentDidMount = async () => {
+    /*let token = await AsyncStorage.getItem('token');*/
+    fetch(`http://api.mysnackbox.co/machine/${this.props.navigation.state.params.id}`,{
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2MjU5ODcsImV4cCI6MTUxMjIxNzk4NywiaWQiOm51bGwsImVtYWlsIjoibGFrc2hpdDEwMDFAeW1haWwuY29tIn0.0vsc2jMGeaK25MV02ERjCblv23b65SLmuAslfYYiT-c',
+          'Host': 'api.mysnackbox.co'
+        }
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          machineItems: responseJson.data,
+          
+        }, function() {
+          console.log(this.state.machineItems)
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   render() {
-    const { navigate } = this.props.navigation;
+
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
+    const { navigate } = this.props.navigation;/*
     var machines = [{"row":"A1","item_name":"Lays","item_price":"20","items_left":"3/9","date":"21/10"},
                     {"row":"A2","item_name":"Kurkure Masala","item_price":"10","items_left":"4/9","date":"21/10"},
-                    {"row":"A3","item_name":"Haldiram Bhujia","item_price":"30","items_left":"5/12","date":"21/10"}];
+                    {"row":"A3","item_name":"Haldiram Bhujia","item_price":"30","items_left":"5/12","date":"21/10"}];*/
     return (
       <Container style={styles.container}>
         <Content>
-          <List dataArray={machines}
+          <List dataArray={this.state.machineItems}
             renderRow={(machine) =>
               <ListItem>
-                  <Text style={styles.lefttext}>{machine.row}</Text>
+                  <Text style={styles.lefttext}>{machine.row_tag}</Text>
                 <Body>
-                    <Text style={styles.boldcolortext}>{machine.item_name}</Text>
-                    <Text>Rs. {machine.item_price}</Text>
+                    <Text style={styles.boldcolortext}>{machine.name}</Text>
+                    <Text>Rs. {machine.price}</Text>
                 </Body>
                 <Right>
-                  <Text style={styles.boldtext}>{machine.items_left}</Text>
+                  <Text style={styles.boldtext}>{machine.left_units}/{machine.tot_units}</Text>
                 </Right>
               </ListItem>
             }>
