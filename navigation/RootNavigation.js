@@ -5,10 +5,14 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import MachineDetailsScreen from '../screens/MachineDetailsScreen';
 import OrderDetailsScreen from '../screens/OrderDetailsScreen';
+import LoginScreen from '../screens/LoginScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
+    Login: {
+      screen: LoginScreen,
+    },
     Main: {
       screen: MainTabNavigator,
     },
