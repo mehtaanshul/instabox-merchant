@@ -50,7 +50,7 @@ export default class OrdersScreen extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-  }
+  
 
     fetch('http://api.mysnackbox.co/orders',{
         method: 'GET',
