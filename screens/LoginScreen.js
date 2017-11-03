@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Icon, Form, Item, Input, Label } from 'native-base';
 import { StyleSheet, Image, View, TabNavigator, ListView, ActivityIndicator, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
+import { NavigationActions } from 'react-navigation';
 export default class LoginScreen extends React.Component {
 
   static navigationOptions = {
@@ -14,7 +15,44 @@ export default class LoginScreen extends React.Component {
         isLoading: false,
         email: '',
         password: '',
+        auth:{}
     }
+  }
+
+  onLoginPress = async () => {
+    const resetActionLogin = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Main'})
+      ]
+    });
+
+      fetch('http://api.mysnackbox.co/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password,
+        })
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          auth: responseJson
+        }, function() {
+         // console.log(this.state.auth);
+          if(this.state.auth.registered === true){
+            AsyncStorage.setItem("token",this.state.auth.token);
+            this.props.navigation.dispatch(resetActionLogin);
+          }
+          else{
+            console.log('here');
+          }
+        });
+      });
   }
 
 render() {
@@ -48,7 +86,7 @@ render() {
                 fontWeight='bold'
                 borderRadius={10}
                 buttonStyle = {styles.signupButton}
-                onPress={() => navigate('Main')}
+                onPress={this.onLoginPress}
               />
              </Content>
          </Container>
