@@ -3,6 +3,7 @@ import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Icon
 import { StyleSheet, Image, View, TabNavigator, ListView, ActivityIndicator, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
+import { ProgressDialog } from 'react-native-simple-dialogs';
 export default class LoginScreen extends React.Component {
 
   static navigationOptions = {
@@ -19,6 +20,15 @@ export default class LoginScreen extends React.Component {
     }
   }
 
+  openProgress() {
+        this.setState({ showProgress: true })
+
+        setTimeout(
+            () => this.setState({ showProgress: false }),
+            2500
+        );
+    }
+
   onLoginPress = async () => {
     const resetActionLogin = NavigationActions.reset({
       index: 0,
@@ -26,6 +36,8 @@ export default class LoginScreen extends React.Component {
         NavigationActions.navigate({ routeName: 'Main'})
       ]
     });
+
+      this.openProgress();
 
       fetch('http://api.mysnackbox.co/login', {
         method: 'POST',
@@ -49,7 +61,8 @@ export default class LoginScreen extends React.Component {
             this.props.navigation.dispatch(resetActionLogin);
           }
           else{
-            console.log('here');
+            //console.log('here');
+            alert('Wrong email/password');
           }
         });
       });
@@ -87,6 +100,12 @@ render() {
                 borderRadius={10}
                 buttonStyle = {styles.signupButton}
                 onPress={this.onLoginPress}
+              />
+              <ProgressDialog
+                visible={this.state.showProgress}
+                message="Logging in..."
+                activityIndicatorSize="large"
+                activityIndicatorColor="black"
               />
              </Content>
          </Container>

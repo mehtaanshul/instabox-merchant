@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator, AsyncStorage} from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Body } from 'native-base';
 
 export default class MachinesScreen extends React.Component {
@@ -16,13 +16,13 @@ export default class MachinesScreen extends React.Component {
   }
 
   componentDidMount = async () => {
-    /*let token = await AsyncStorage.getItem('token');*/
+    let token = await AsyncStorage.getItem('token');
     fetch('http://api.mysnackbox.co/machines',{
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2MjU5ODcsImV4cCI6MTUxMjIxNzk4NywiaWQiOm51bGwsImVtYWlsIjoibGFrc2hpdDEwMDFAeW1haWwuY29tIn0.0vsc2jMGeaK25MV02ERjCblv23b65SLmuAslfYYiT-c',
+          'Authorization': 'Bearer ' + token,
           'Host': 'api.mysnackbox.co'
         }
       })

@@ -19,6 +19,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.1.tar.gz",
     "react-native-elements": "^0.17.0",
     "react-native-pathjs-charts": "0.0.31",
+    "react-native-simple-dialogs": "^0.2.5",
     "react-native-simple-login": "^1.1.0",
     "react-navigation": "^1.0.0-beta.15"
   },
