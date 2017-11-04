@@ -41,7 +41,7 @@ export default class HomeScreen extends React.Component {
           />
         </VictoryChart>*/}
         <Text>
-          Welcome Admin.
+          Welcome123 Admin.
         </Text>
       </View>
   )
