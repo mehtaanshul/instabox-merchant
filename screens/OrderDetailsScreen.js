@@ -33,7 +33,6 @@ export default class MachinesScreen extends React.Component {
           order: responseJson.data,
           
         }, function() {
-          console.log(this.state.machineItems)
         });
       })
       .catch((error) => {

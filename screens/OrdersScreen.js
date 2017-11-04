@@ -57,7 +57,7 @@ export default class OrdersScreen extends React.Component {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2MjU5ODcsImV4cCI6MTUxMjIxNzk4NywiaWQiOm51bGwsImVtYWlsIjoibGFrc2hpdDEwMDFAeW1haWwuY29tIn0.0vsc2jMGeaK25MV02ERjCblv23b65SLmuAslfYYiT-c',
+          'Authorization': 'Bearer ' + token,
           'Host': 'api.mysnackbox.co'
         }
       })
@@ -68,7 +68,7 @@ export default class OrdersScreen extends React.Component {
           orders: responseJson.data,
           
         }, function() {
-          console.log(this.state.machineItems)
+          //console.log(this.state.machineItems)
         });
       })
       .catch((error) => {
