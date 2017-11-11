@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Icon, Form, Item, Input, Label } from 'native-base';
-import { StyleSheet, Image, View, TabNavigator, ListView, ActivityIndicator, TouchableOpacity, AsyncStorage } from 'react-native';
-import { Button } from 'react-native-elements';
+import { StyleSheet, Image, View, TabNavigator, ListView, ActivityIndicator, TouchableOpacity, AsyncStorage, Button } from 'react-native';
+//import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-import { ProgressDialog } from 'react-native-simple-dialogs';
+//import { ProgressDialog } from 'react-native-simple-dialogs';
 export default class LoginScreen extends React.Component {
 
   static navigationOptions = {
@@ -20,14 +20,14 @@ export default class LoginScreen extends React.Component {
     }
   }
 
-  openProgress() {
+  /*openProgress() {
         this.setState({ showProgress: true })
 
         setTimeout(
             () => this.setState({ showProgress: false }),
             2500
         );
-    }
+    }*/
 
   onLoginPress = async () => {
     const resetActionLogin = NavigationActions.reset({
@@ -37,7 +37,7 @@ export default class LoginScreen extends React.Component {
       ]
     });
 
-      this.openProgress();
+      //this.openProgress();
 
       fetch('http://api.mysnackbox.co/login', {
         method: 'POST',
@@ -92,6 +92,22 @@ render() {
                   value={this.state.password}/>
                 </Item>
               </Form>
+              
+              <TouchableOpacity onPress={this.onLoginPress}>
+                <View style = {styles.loginButton}>
+                  <Text style={styles.buttonText}>
+                  Login
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              {/*
+                <View style = {styles.signupButton}>
+                <Button
+                  onPress={this.onLoginPress}
+                  title="Login"
+                  color="#2980b9"
+                />
+              </View>
               <Button 
                 title="Login"
                 color='white'
@@ -106,7 +122,7 @@ render() {
                 message="Logging in..."
                 activityIndicatorSize="large"
                 activityIndicatorColor="black"
-              />
+              />*/}
              </Content>
          </Container>
     )
@@ -123,10 +139,22 @@ const styles = StyleSheet.create({
     alignSelf:'center',
   },
   signupButton: {
-    marginTop: 44,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 300,
+    marginTop: 44
   },
+  loginButton: {
+    marginTop: 44,
+    width: 300,
+    height: 44,
+    borderRadius: 10,
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2980b9'  
+   },
+   buttonText: {
+   color: '#fff',
+   fontSize: 19,
+   fontWeight: '200', 
+   },
+
 });

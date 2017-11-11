@@ -6,6 +6,7 @@ import MainTabNavigator from './MainTabNavigator';
 import MachineDetailsScreen from '../screens/MachineDetailsScreen';
 import OrderDetailsScreen from '../screens/OrderDetailsScreen';
 import LoginScreen from '../screens/LoginScreen';
+import MyWeb from '../screens/MyWeb';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
@@ -21,6 +22,9 @@ const RootStackNavigator = StackNavigator(
     },
     OrderDetails: {
       screen: OrderDetailsScreen,
+    },
+    MyWeb: {
+      screen: MyWeb,
     },
   },
   {

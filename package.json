@@ -15,13 +15,15 @@
     "@expo/samples": "2.1.1",
     "expo": "^22.0.0",
     "native-base": "^2.3.3",
+    "prop-types": "^15.6.0",
     "react": "16.0.0-beta.5",
     "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.1.tar.gz",
-    "react-native-elements": "^0.17.0",
     "react-native-pathjs-charts": "0.0.31",
-    "react-native-simple-dialogs": "^0.2.5",
+    "react-native-phone-call": "^1.0.4",
+    "react-native-svg": "^5.4.2",
     "react-native-vector-icons": "^4.4.2",
-    "react-navigation": "^1.0.0-beta.15"
+    "react-navigation": "^1.0.0-beta.15",
+    "victory-native": "^0.15.0"
   },
   "devDependencies": {
     "jest-expo": "^22.0.0"

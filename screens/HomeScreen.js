@@ -9,7 +9,7 @@ import {
   View,
   AppRegistry,
 } from 'react-native';
-/*import { VictoryChart, VictoryBar, VictoryTheme } from "victory-native";
+import { VictoryChart, VictoryBar, VictoryTheme } from "victory-native";
 
 const data = [
   {day: 'Mon', earnings: 1300},
@@ -20,7 +20,7 @@ const data = [
   {day: 'Sat', earnings: 1600},
   {day: 'Sun', earnings: 1900},
 ];
-*/
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Home',
@@ -29,7 +29,7 @@ export default class HomeScreen extends React.Component {
   render() {
   return (
      <View style={styles.container}>
-        {/*<VictoryChart
+        <VictoryChart
           domainPadding={20}
           height={250}
         >
@@ -39,9 +39,9 @@ export default class HomeScreen extends React.Component {
             x="day"
             y="earnings"
           />
-        </VictoryChart>*/}
+        </VictoryChart>
         <Text>
-          Welcome123 Admin.
+          Welcome12Admin.
         </Text>
       </View>
   )
