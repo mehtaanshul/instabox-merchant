@@ -93,20 +93,6 @@ export default class OrdersScreen extends React.Component {
     return (
       <Container style={styles.container}>
         <Content>
-          <Form>
-            <Picker
-              iosHeader="Select one"
-              mode="dropdown"
-              selectedValue={this.state.selected1}
-              onValueChange={this.onValueChange.bind(this)}
-            >
-              <Item label="Wallet" value="key0" />
-              <Item label="ATM Card" value="key1" />
-              <Item label="Debit Card" value="key2" />
-              <Item label="Credit Card" value="key3" />
-              <Item label="Net Banking" value="key4" />
-            </Picker>
-          </Form>
           <List dataArray={this.state.orders}
             renderRow={(order) =>
               <ListItem onPress={() => navigate('OrderDetails', { id: `${order.id}`,price: `${order.price}`,quantity: `${order.quantity}`, time: `${order.time}`})}>
