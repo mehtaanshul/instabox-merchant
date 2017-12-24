@@ -7,9 +7,9 @@ import { NavigationActions } from 'react-navigation';
 export default class LoginScreen extends React.Component {
 
   static navigationOptions = {
-    header: null,
-  }
- 
+    header: null
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ export default class LoginScreen extends React.Component {
         email: '',
         password: '',
         auth:{}
-    }
+    };
   }
 
   /*openProgress() {
@@ -47,7 +47,7 @@ export default class LoginScreen extends React.Component {
         },
         body: JSON.stringify({
           email: this.state.email,
-          password: this.state.password,
+          password: this.state.password
         })
       })
       .then((response) => response.json())
@@ -87,12 +87,12 @@ render() {
                 </Item>
                 <Item fixedLabel last>
                   <Label>Password</Label>
-                  <Input 
+                  <Input
                   onChangeText={(password) => this.setState({password})}
                   value={this.state.password}/>
                 </Item>
               </Form>
-              
+
               <TouchableOpacity onPress={this.onLoginPress}>
                 <View style = {styles.loginButton}>
                   <Text style={styles.buttonText}>
@@ -108,7 +108,7 @@ render() {
                   color="#2980b9"
                 />
               </View>
-              <Button 
+              <Button
                 title="Login"
                 color='white'
                 backgroundColor='#2980b9'
@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     justifyContent: 'center',
-    backgroundColor: '#2980b9'  
+    backgroundColor: '#2980b9'
    },
    buttonText: {
    color: '#fff',
    fontSize: 19,
-   fontWeight: '200', 
+   fontWeight: '200',
    },
 
 });

@@ -42,7 +42,7 @@ export default class SettingsScreen extends React.Component {
               <Text>FAQs</Text>
             </ListItem>
             <ListItem button onPress={() => call(args).catch(console.error)}>
-              <Text>Call us</Text>
+              <Text>Call Us</Text>
             </ListItem>
             <ListItem>
               <Text>Email</Text>
