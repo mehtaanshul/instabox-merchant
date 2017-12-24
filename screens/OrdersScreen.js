@@ -42,7 +42,7 @@ export default class OrdersScreen extends React.Component {
         this.setState({
           isLoading: false,
           machines: responseJson.data,
-          
+
         }, function() {
           console.log(this.state.machines)
         });
@@ -50,7 +50,7 @@ export default class OrdersScreen extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-  
+
 
     fetch('http://api.mysnackbox.co/orders',{
         method: 'GET',
@@ -66,7 +66,7 @@ export default class OrdersScreen extends React.Component {
         this.setState({
           isLoading: false,
           orders: responseJson.data,
-          
+
         }, function() {
           //console.log(this.state.machineItems)
         });
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection:'row',
     justifyContent: 'space-between',
-    alignItems: 'stretch' 
+    alignItems: 'stretch'
   },
   innerviewleft: {
     flexDirection:'column',
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   innerviewright: {
     flexDirection:'column',
     justifyContent: 'space-around',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   boldtext:{
     fontWeight:'bold',
