@@ -46,11 +46,11 @@ export default class LoginScreen extends React.Component {
     /*openProgress() {
         this.setState({ showProgress: true })
 
-        setTimeout(
-            () => this.setState({ showProgress: false }),
-            2500
-        );
-    }*/
+    onLoginPress = async () => {
+        const resetActionLogin = NavigationActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: "Main" })]
+        });
 
     onLoginPress = async () => {
         const resetActionLogin = NavigationActions.reset({
