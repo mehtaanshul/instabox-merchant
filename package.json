@@ -26,6 +26,7 @@
     "victory-native": "^0.15.0"
   },
   "devDependencies": {
+    "eslint-plugin-react": "^7.6.1",
     "jest-expo": "^24.0.0"
   }
 }

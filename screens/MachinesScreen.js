@@ -1,33 +1,29 @@
-import React from "react";
+import React from 'react'
 import {
-    ScrollView,
-    StyleSheet,
-    View,
-    Text,
-    ActivityIndicator,
-    AsyncStorage
-} from "react-native";
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+  AsyncStorage
+} from 'react-native'
 import {
-    Container,
-    Header,
-    Content,
-    List,
-    ListItem,
-    Thumbnail,
-    Body
-} from "native-base";
+  Container,
+  Content,
+  List,
+  ListItem
+} from 'native-base'
 
 export default class MachinesScreen extends React.Component {
     static navigationOptions = {
-        title: "Machines"
+      title: 'Machines'
     };
 
     constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: true,
-            machines: {}
-        };
+      super(props)
+      this.state = {
+        isLoading: true,
+        machines: {}
+      }
     }
 
     componentDidMount = async () => {
@@ -67,7 +63,7 @@ export default class MachinesScreen extends React.Component {
             );
         }
 
-        const { navigate } = this.props.navigation;
+        const { navigate } = this.props.navigation
         /*var machines = [{"id":"1","location":"Hostel A","company":"Thapar University","items_left":"150/240","date":"21/10"},
                     {"id":"2","location":"Cos","company":"Thapar University","items_left":"100/400","date":"21/10"},
                     {"id":"3","location":"Hostel J","company":"Thapar University","items_left":"50/300","date":"21/10"}];*/
